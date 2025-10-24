@@ -41,9 +41,9 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(posts $posts)
+    public function show(posts $post)
     {
-        //
+        return view('show', ['post'=> $post]);
     }
 
     /**
@@ -57,10 +57,18 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, posts $posts)
-    {
-        //
-    }
+public function update(Request $request, $id)
+{
+    posts::find($id)->update($request->validate([
+        'title' => 'required',
+        'author' => 'required',
+        'content' => 'required',
+        'status' => 'required',
+    ]));
+
+    return redirect()->route('posts.show', $id);
+}
+
 
     /**
      * Remove the specified resource from storage.
@@ -69,4 +77,22 @@ class PostsController extends Controller
     {
         //
     }
+    public function apiIndex()
+{
+    $posts = \App\Models\Posts::all();
+    return response()->json($posts);
+}
+
+public function apiStore(Request $request)
+{
+    $post = \App\Models\Posts::create($request->validate([
+        'title' => 'required',
+        'author' => 'required',
+        'content' => 'required',
+        'status' => 'required',
+    ]));
+
+    return response()->json($post, 201);
+}
+
 }
