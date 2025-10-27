@@ -25,3 +25,7 @@ Route::get('/posts', [PostsController::class, 'apiIndex']);
 Route::get('/posts/{id}', [PostsController::class, 'apiShow']);
 
 Route::post('/posts', [PostsController::class, 'apiStore']);
+
+Route::put('/posts/{id}', [PostsController::class, 'apiUpdate']);
+
+Route::delete('/posts/{id}', [PostsController::class, 'apiDelete']); // Delete a post

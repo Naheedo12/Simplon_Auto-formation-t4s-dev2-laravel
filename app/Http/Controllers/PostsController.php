@@ -102,4 +102,26 @@ public function apiStore(Request $request)
     return response()->json($post, 201);
 }
 
+public function apiUpdate(Request $request, $id)
+{
+    $post = Posts::find($id);
+
+    $post->update([
+        'title' => $request->title,
+        'author' => $request->author,
+        'content' => $request->content,
+        'status' => $request->status,
+    ]);
+
+    return response()->json($post);
+}
+
+public function apiDelete($id)
+{
+    $post = Posts::find($id);
+    $post->delete();
+
+    return response()->json(['message' => 'Post deleted successfully']);
+}
+
 }
