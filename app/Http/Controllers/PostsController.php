@@ -79,13 +79,20 @@ public function update(Request $request, $id)
     }
     public function apiIndex()
 {
-    $posts = \App\Models\Posts::all();
+    $posts = Posts::all();
     return response()->json($posts);
 }
 
+public function apiShow($id)
+{
+    $post = Posts::find($id);
+    return response()->json($post);
+}
+
+
 public function apiStore(Request $request)
 {
-    $post = \App\Models\Posts::create($request->validate([
+    $post = Posts::create($request->validate([
         'title' => 'required',
         'author' => 'required',
         'content' => 'required',
