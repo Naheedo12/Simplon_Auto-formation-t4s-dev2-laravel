@@ -93,6 +93,7 @@ public function apiShow($id)
 public function apiStore(Request $request)
 {
     $post = Posts::create($request->validate([
+        'user_id' => 'required|exists:users,id', // <-- ajouté
         'title' => 'required',
         'author' => 'required',
         'content' => 'required',
@@ -101,6 +102,7 @@ public function apiStore(Request $request)
 
     return response()->json($post, 201);
 }
+
 
 public function apiUpdate(Request $request, $id)
 {
