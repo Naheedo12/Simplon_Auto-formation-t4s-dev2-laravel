@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,8 @@ use App\Http\Controllers\PostsController;
 
 Route::redirect('/', 'posts');
 Route::resource('posts', PostsController::class);
+
+Route::get('/register', [RegisterController::class, 'showForm']);
+Route::post('/register/submit', [RegisterController::class, 'handleForm']);
+
+
