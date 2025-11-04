@@ -1,77 +1,57 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Liste des Réservations</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            margin: 0;
-            padding: 30px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-        }
-
-        .card {
-            background: #fff;
-            padding: 15px;
-            margin: 10px auto;
-            border-radius: 10px;
-            width: 70%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        button,
-        a.btn {
-            background: #2c3e50;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-        }
-
-        button:hover,
-        a.btn:hover {
-            background: #34495e;
-        }
-
-        .actions a {
-            margin-right: 10px;
-            color: #2980b9;
-            text-decoration: none;
-        }
-
-        .actions a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings - Index</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-green-50 min-h-screen">
+    <div class="max-w-5xl mx-auto p-6">
+        <header class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-semibold text-green-800">Bookings</h1>
+            <a href="{{ route('bookings.create') }}"
+                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">+ New Booking</a>
+        </header>
 
-    <h1>Liste des Réservations</h1>
+        <table class="w-full bg-white shadow rounded-lg">
+            <thead class="bg-green-100">
+                <tr>
+                    <th class="px-4 py-3 text-left text-green-800">ID</th>
+                    <th class="px-4 py-3 text-left text-green-800">Service ID</th>
+                    <th class="px-4 py-3 text-left text-green-800">Customer Name</th>
+                    <th class="px-4 py-3 text-left text-green-800">Date</th>
+                    <th class="px-4 py-3 text-left text-green-800">Time</th>
+                    <th class="px-4 py-3 text-right text-green-800">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                @foreach ($bookings as $booking)
+                    <tr>
+                        <td class="px-4 py-3">{{ $booking->id }}</td>
+                        <td class="px-4 py-3">{{ $booking->service_id }}</td>
+                        <td class="px-4 py-3">{{ $booking->customer_name }}</td>
+                        <td class="px-4 py-3">{{ $booking->date }}</td>
+                        <td class="px-4 py-3">{{ $booking->time }}</td>
+                        <td class="px-4 py-3 text-right">
+                            <a href="{{ route('bookings.show', $booking->id) }}"
+                                class="text-violet-600 font-bold hover:underline mr-2">Show</a>
+                            <a href="{{ route('bookings.edit', $booking->id) }}"
+                                class="text-blue-700 font-bold hover:underline mr-2">Edit</a>
+                            <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 font-bold hover:underline">Delete</button>
+                            </form>
 
-    @foreach ($bookings as $booking)
-        <div class="card">
-            <p><strong>Service :</strong> {{ $booking->service_id }}</p>
-            <p><strong>Date :</strong> {{ $booking->date }}</p>
-            <p><strong>Heure :</strong> {{ $booking->time }}</p>
-            <p><strong>Status :</strong> {{ $booking->status }}</p>
-            <div class="actions">
-                <a href="{{ route('bookings.show', $booking->id) }}">Voir</a>
-                <a href="{{ route('bookings.edit', $booking->id) }}">Modifier</a>
-            </div>
-        </div>
-    @endforeach
-
-    <a href="{{ route('bookings.create') }}" class="btn">+ Nouvelle Réservation</a>
-
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>

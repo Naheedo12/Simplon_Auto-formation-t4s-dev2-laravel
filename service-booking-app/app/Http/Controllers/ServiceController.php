@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -14,7 +15,6 @@ class ServiceController extends Controller
     public function index()
     {
         return view('services.index', ['services' => Service::all()]);
-
     }
 
     /**
@@ -48,7 +48,6 @@ class ServiceController extends Controller
     public function show(Service $service)
     {
         return view('services.show', ['service' => $service]);
-
     }
 
     /**
@@ -57,7 +56,6 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         return view('services.edit', ['service' => $service]);
-
     }
 
     /**
@@ -65,10 +63,23 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
+        $data = $request->validated();
 
-        $service->update($request->validated());
+        if ($request->hasFile('image')) {
+            // Supprimer l’ancienne image si elle existe
+            if ($service->image) {
+                Storage::disk('public')->delete($service->image);
+            }
 
-        return redirect()->route('services.index')->with('updated successfully');
+            // Sauvegarder la nouvelle image
+            $path = $request->file('image')->store('services', 'public');
+            $data['image'] = $path;
+        }
+
+        $service->update($data);
+
+        return redirect()->route('services.show', $service)
+            ->with('success', 'Service mis à jour avec succès.');
     }
 
     /**
@@ -76,8 +87,12 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
+        if ($service->image) {
+            Storage::disk('public')->delete($service->image);
+        }
+
         $service->delete();
 
-        return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
+        return redirect()->route('services.index')->with('success', 'Service supprimé avec succès.');
     }
 }
