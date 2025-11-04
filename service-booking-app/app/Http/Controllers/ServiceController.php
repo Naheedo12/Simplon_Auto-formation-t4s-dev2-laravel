@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
+use App\Models\Service;
 
 class ServiceController extends Controller
 {
@@ -13,8 +13,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('services.index',['services' => Service::all()]) ;
-        
+        return view('services.index', ['services' => Service::all()]);
+
     }
 
     /**
@@ -30,10 +30,16 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-         $service = Service::create($request->validated());
+        $data = $request->validated();
 
-        
-    return "created succsusfully";
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('services', 'public');
+            $data['image'] = $path;
+        }
+
+        Service::create($data);
+
+        return redirect()->route('services.index')->with('success', 'Service créé avec succès.');
     }
 
     /**
@@ -41,8 +47,8 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        return view('services.show',['service' => $service]);
-        
+        return view('services.show', ['service' => $service]);
+
     }
 
     /**
@@ -50,7 +56,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('services.edit',['service' => $service]);
+        return view('services.edit', ['service' => $service]);
 
     }
 
@@ -59,9 +65,11 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        
-$service->update($request->validated());
-return "updated successfully";    }
+
+        $service->update($request->validated());
+
+        return redirect()->route('services.index')->with('updated successfully');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -69,5 +77,7 @@ return "updated successfully";    }
     public function destroy(Service $service)
     {
         $service->delete();
+
+        return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
     }
 }

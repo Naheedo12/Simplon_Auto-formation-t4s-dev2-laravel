@@ -22,7 +22,10 @@ class UpdateServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
+            'title' => 'required',
+            'description' => 'required',
+            'duration' => 'required',
+            'price' => 'required|min:1',
+'image' => 'nullable|mimes:jpg,png',        ];
     }
 }

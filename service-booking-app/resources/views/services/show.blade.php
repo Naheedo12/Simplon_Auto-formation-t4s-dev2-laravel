@@ -15,7 +15,14 @@
         <h2 class="text-xl font-semibold text-green-800">Service #{{ $service->id }}</h2>
         <div>
           <a href="{{ route('services.edit', $service->id) }}" class="text-green-600 hover:underline mr-2">Edit</a>
-          <a href="{{ route('services.destroy', $service->id) }}" class="text-red-600 hover:underline">Delete</a>
+<form action="{{ route('services.destroy', $service->id) }}" method="POST" style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="text-red-600 hover:underline"
+            onclick="return confirm('Delete this service?')">
+        Delete
+    </button>
+</form>
         </div>
       </div>
 
