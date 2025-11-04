@@ -21,7 +21,6 @@
                 <tr>
                     <th class="px-4 py-3 text-left text-green-800">ID</th>
                     <th class="px-4 py-3 text-left text-green-800">Service ID</th>
-                    <th class="px-4 py-3 text-left text-green-800">Customer Name</th>
                     <th class="px-4 py-3 text-left text-green-800">Date</th>
                     <th class="px-4 py-3 text-left text-green-800">Time</th>
                     <th class="px-4 py-3 text-right text-green-800">Actions</th>
@@ -32,7 +31,6 @@
                     <tr>
                         <td class="px-4 py-3">{{ $booking->id }}</td>
                         <td class="px-4 py-3">{{ $booking->service_id }}</td>
-                        <td class="px-4 py-3">{{ $booking->customer_name }}</td>
                         <td class="px-4 py-3">{{ $booking->date }}</td>
                         <td class="px-4 py-3">{{ $booking->time }}</td>
                         <td class="px-4 py-3 text-right">
