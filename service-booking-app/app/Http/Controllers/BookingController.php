@@ -13,7 +13,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return view('index', ['bookings' => Booking::all()]);
+        return view('bookings.index', ['bookings' => Booking::all()]);
     }
 
     /**
@@ -21,7 +21,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('bookings.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        return view('edit', ['booking' => $booking]);
+        return view('booking.edit', ['booking' => $booking]);
 
     }
 
@@ -48,7 +48,7 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        return view('edit', ['booking' => $booking]);
+        return view('bookings.edit', ['booking' => $booking]);
 
     }
 
