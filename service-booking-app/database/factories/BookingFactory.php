@@ -18,7 +18,7 @@ class BookingFactory extends Factory
     {
         return [
             
-            'service_id' => Service::factory(),
+           // 'service_id' => Service::factory(),
             'date' => fake()->date(),
             'time' => fake()->time(),
             'status' => fake()->randomElement(['waiting', 'confirmed', 'cancelled']),

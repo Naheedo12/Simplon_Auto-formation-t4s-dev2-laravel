@@ -63,6 +63,7 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
+        $this->authorize('update', $service);
         $data = $request->validated();
 
         if ($request->hasFile('image')) {

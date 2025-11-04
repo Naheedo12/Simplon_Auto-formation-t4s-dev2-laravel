@@ -29,10 +29,13 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        Booking::create($request->validated());
-
-return redirect()->route('bookings.index')->with('success', 'Booking créé avec succès');
+        
+      
+    
+      
     }
+
+    
 
     /**
      * Display the specified resource.

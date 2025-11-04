@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ServiceDetails;
 
 class Service extends Model
 {
@@ -17,8 +18,13 @@ class Service extends Model
         'image',
     ];
 
-    public function Bookings()
+    public function detailsService()
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasOne(ServiceDetails::class);
     }
+
+     public function Bookings()
+     {
+         return $this->belongsToMany(Booking::class,'services_booking');
+     }
 }

@@ -10,14 +10,14 @@ class Booking extends Model
     use HasFactory;
 
     protected $fillable = [
-        'service_id',
+       
         'date',
         'time',
         'status'
     ];
 
-public function service()
-{
-    return $this->belongsTo(Service::class);
-}
+ public function service()
+ {
+    return $this->belongsToMany(Service::class,'services_booking');
+ }
 }
