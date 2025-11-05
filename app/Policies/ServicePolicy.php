@@ -19,11 +19,9 @@ class ServicePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user) : bool
+    public function view(User $user, Service $service): bool
     {
-
-        // return true;
-        return $user->role=="admin" ;
+        //
     }
 
     /**
@@ -31,7 +29,7 @@ class ServicePolicy
      */
     public function create(User $user): bool
     {
-        
+        //
     }
 
     /**
@@ -39,7 +37,7 @@ class ServicePolicy
      */
     public function update(User $user, Service $service): bool
     {
-                
+        //
     }
 
     /**
@@ -47,7 +45,7 @@ class ServicePolicy
      */
     public function delete(User $user, Service $service): bool
     {
-        
+        //
     }
 
     /**

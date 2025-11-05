@@ -6,6 +6,8 @@ use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ServiceController extends Controller
 {
@@ -14,7 +16,21 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('services.index', ['services' => Service::all()]);
+        //  if (Gate::allows('view')) {
+        //     return view('services.index', ['services' => Service::all()]);
+        // }else{
+        //     return "Not Allowd";
+        // }
+        //  if (Gate::allows('index-service')) {
+        //     return view('services.index', ['services' => Service::all()]);
+        // }else{
+        //     return "Not Allowd";
+        // }
+       Gate::authorize('view', Service::class);
+
+
+         return view('services.index', ['services' => Service::all()]);
+        
     }
 
     /**
