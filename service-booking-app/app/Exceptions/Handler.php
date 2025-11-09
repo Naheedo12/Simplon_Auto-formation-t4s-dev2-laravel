@@ -7,6 +7,29 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    public function render($request, Throwable $exception)
+    {
+        if ($this->isHttpException($exception)) {
+            if ($exception->getStatusCode() == 404) {
+                return response()->view('errors.404', [], 404);
+            }
+
+            if ($exception->getStatusCode() == 419) {
+                return response()->view('errors.419', [], 419);
+            }
+
+            if ($exception->getStatusCode() == 500) {
+                return response()->view('errors.500', [], 500);
+            }
+        }
+
+        if ($exception instanceof \ErrorException) {
+            return response()->view('errors.500', [], 500);
+        }
+
+        return parent::render($request, $exception);
+    }
+
     /**
      * A list of exception types with their corresponding custom log levels.
      *

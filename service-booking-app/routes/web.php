@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +47,17 @@ Route::middleware('auth')->group(function () {
     //         'status' => 'tests',
     //     ]);
     // });
+});
+Route::get('/500', function () {
+    abort(500);
+});
+
+Route::get('/404', function () {
+    abort(404);
+});
+
+Route::get('/419', function () {
+    abort(419);
 });
 
 require __DIR__.'/auth.php';
