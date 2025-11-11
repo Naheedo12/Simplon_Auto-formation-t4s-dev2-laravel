@@ -6,6 +6,9 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use App\Models\Profile;
+use App\Http\Controllers\Api\ArticleController;
+
+
 
 
 
@@ -57,6 +60,10 @@ Route::get('/users', function() {
 Route::get('/users/{id}', function($id) {
     return User::with('profile')->find($id);
 });
+
+
+
+Route::apiResource('articles', ArticleController::class);
 
 
 

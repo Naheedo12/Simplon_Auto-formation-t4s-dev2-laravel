@@ -1,0 +1,102 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "hello world",
+        "description": "Documentation du CRUD avec Swagger",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/articles": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Liste des articles",
+                "operationId": "93ded9e31119e6bbb22455c72ef97f19",
+                "responses": {
+                    "200": {
+                        "description": "Succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Ajout un article",
+                "operationId": "75bdc5f953261e6f34852386c9b522c0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "content"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Cenderilla"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "histoire imaginaire et magique"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Produit créé"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Article": {
+                "required": [
+                    "id",
+                    "title",
+                    "content"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Titre de l'article"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "Contenu de l'article"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Articles",
+            "description": "Articles"
+        }
+    ]
+}
